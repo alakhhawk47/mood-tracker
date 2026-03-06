@@ -21,7 +21,7 @@ export default function Login() {
     <div className="w-1/2 hidden md:flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-700">
       
       <img
-        src="https://img.sanishtech.com/u/a96c63653b52ff66a0d94f356a8ca2f7.jpg"
+        src="https://img.sanishtech.com/u/69e54aa77db4b897d34243b1ad593216.jpg"
         alt="login visual"
         className="w-[80%] max-w-md rounded-2xl shadow-2xl"
       />
