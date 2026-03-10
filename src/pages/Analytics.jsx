@@ -81,9 +81,9 @@ export default function Analytics() {
   ];
 
   return (
-    <div className="min-h-screen bg-wellness-gradient relative overflow-x-hidden">
+    <div className="min-h-screen bg-wellness-gradient dark:bg-dark-wellness-gradient relative overflow-x-hidden transition-colors duration-300">
       {/* Background blobs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-100 dark:opacity-30 transition-opacity duration-300">
         <GradientBlob className="w-72 h-72 bg-pastel-blue top-[-3rem] right-[-3rem]" />
         <GradientBlob className="w-80 h-80 bg-lavender bottom-[6rem] left-[-4rem]" style={{ animationDelay: '4s' }} />
       </div>
@@ -99,8 +99,8 @@ export default function Analytics() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <h1 className="text-2xl font-bold text-slate-800">Mood Analytics</h1>
-            <p className="text-slate-500 text-sm mt-1">Explore your emotional patterns over time</p>
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-dark-text">Mood Analytics</h1>
+            <p className="text-slate-500 dark:text-dark-muted text-sm mt-1">Explore your emotional patterns over time</p>
           </motion.div>
 
           {/* Insight Cards */}
@@ -124,10 +124,10 @@ export default function Analytics() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl shadow-card p-12 text-center mb-8"
+              className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-12 text-center mb-8"
             >
-              <h3 className="font-bold text-slate-600 text-lg mb-2">No data yet</h3>
-              <p className="text-slate-400 text-sm mb-5">Start logging your moods to see beautiful analytics here</p>
+              <h3 className="font-bold text-slate-600 dark:text-dark-text text-lg mb-2">No data yet</h3>
+              <p className="text-slate-400 dark:text-dark-muted text-sm mb-5">Start logging your moods to see beautiful analytics here</p>
               <button
                 onClick={() => navigate('/check-in')}
                 className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-soft-purple to-deep-purple text-white text-sm font-semibold shadow-mood hover:shadow-glass transition-all"
@@ -153,10 +153,10 @@ export default function Analytics() {
             className="mt-8"
           >
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-bold text-slate-700 text-base">
+              <h2 className="font-bold text-slate-700 dark:text-dark-text text-base">
                 Mood History
                 {history.length > 0 && (
-                  <span className="ml-2 text-xs text-slate-400 font-normal">
+                  <span className="ml-2 text-xs text-slate-400 dark:text-dark-muted font-normal">
                     ({history.length} {history.length === 1 ? 'entry' : 'entries'})
                   </span>
                 )}
@@ -164,7 +164,7 @@ export default function Analytics() {
               {history.length > 0 && (
                 <button
                   onClick={() => navigate('/check-in')}
-                  className="text-xs text-soft-purple font-semibold hover:text-deep-purple transition-colors"
+                  className="text-xs text-soft-purple dark:text-dark-accent font-semibold hover:text-deep-purple dark:hover:text-soft-purple transition-colors"
                 >
                   + Add entry
                 </button>
@@ -183,7 +183,7 @@ export default function Analytics() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="text-center text-xs text-slate-400 mt-10"
+            className="text-center text-xs text-slate-400 dark:text-dark-muted mt-10"
           >
             Built by Alakh Raj Singh
           </motion.p>

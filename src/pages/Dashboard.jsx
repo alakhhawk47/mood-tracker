@@ -17,9 +17,9 @@ export default function Dashboard() {
   const latestMoodObj = latestMood ? getMoodById(latestMood) : null;
 
   return (
-    <div className="min-h-screen bg-wellness-gradient relative overflow-x-hidden">
+    <div className="min-h-screen bg-wellness-gradient dark:bg-dark-wellness-gradient relative overflow-x-hidden transition-colors duration-300">
       {/* Background blobs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-100 dark:opacity-30 transition-opacity duration-300">
         <GradientBlob className="w-96 h-96 bg-soft-purple top-[-6rem] right-[-6rem]" />
         <GradientBlob className="w-80 h-80 bg-pastel-blue bottom-[10rem] left-[-4rem]" style={{ animationDelay: '3s' }} />
         <GradientBlob className="w-64 h-64 bg-soft-pink top-[40%] right-[20%]" style={{ animationDelay: '5s' }} />
@@ -42,14 +42,14 @@ export default function Dashboard() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl p-4 mb-8 flex items-center gap-4 shadow-card"
+              className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl p-4 mb-8 flex items-center gap-4 shadow-card dark:shadow-none"
             >
               <div className={`w-12 h-12 rounded-xl ${latestMoodObj.bgColor} flex items-center justify-center text-2xl shadow-sm`}>
                 {latestMoodObj.emoji}
               </div>
               <div className="flex-1">
-                <p className="text-xs text-slate-400 font-medium">Last logged mood</p>
-                <p className={`font-bold text-base ${latestMoodObj.textColor}`}>{latestMoodObj.label}</p>
+                <p className="text-xs text-slate-400 dark:text-dark-muted font-medium">Last logged mood</p>
+                <p className={`font-bold text-base ${latestMoodObj.textColor} dark:text-dark-text`}>{latestMoodObj.label}</p>
               </div>
               <button
                 onClick={() => navigate('/check-in')}
@@ -63,10 +63,10 @@ export default function Dashboard() {
           {/* How are you feeling? */}
           <GlassCard className="p-6 mb-8" delay={0.3}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-bold text-slate-700 text-base">How are you feeling?</h2>
+              <h2 className="font-bold text-slate-700 dark:text-dark-text text-base">How are you feeling?</h2>
               <button
                 onClick={() => navigate('/check-in')}
-                className="text-xs text-soft-purple font-semibold hover:text-deep-purple transition-colors"
+                className="text-xs text-soft-purple dark:text-dark-accent font-semibold hover:text-deep-purple dark:hover:text-soft-purple transition-colors"
               >
                 Full check-in →
               </button>
@@ -77,7 +77,7 @@ export default function Dashboard() {
           {/* Activities */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-bold text-slate-700 text-base">Today's Activities</h2>
+              <h2 className="font-bold text-slate-700 dark:text-dark-text text-base">Today's Activities</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {ACTIVITIES.map((activity, i) => (
@@ -89,23 +89,23 @@ export default function Dashboard() {
           {/* Quick Stats */}
           <GlassCard className="p-6 mb-8" delay={0.4}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-bold text-slate-700 text-base">Your Progress</h2>
+              <h2 className="font-bold text-slate-700 dark:text-dark-text text-base">Your Progress</h2>
               <button
                 onClick={() => navigate('/analytics')}
-                className="text-xs text-soft-purple font-semibold hover:text-deep-purple transition-colors"
+                className="text-xs text-soft-purple dark:text-dark-accent font-semibold hover:text-deep-purple dark:hover:text-soft-purple transition-colors"
               >
                 Full analytics →
               </button>
             </div>
             <div className="grid grid-cols-3 gap-4">
               {[
-                { label: 'Total Logs', value: history.length, color: 'text-fuchsia-600' },
+                { label: 'Total Logs', value: history.length, color: 'text-fuchsia-600 dark:text-fuchsia-400' },
                 { label: 'Avg Score', value: avgScore > 0 ? avgScore : '—', color: avgScore >= 7 ? 'text-emerald-500' : avgScore >= 5 ? 'text-amber-500' : 'text-rose-400' },
                 { label: 'Today', value: history.filter(h => h.date === new Date().toLocaleDateString()).length || '—', color: 'text-sky-500' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                  <p className="text-xs text-slate-400 mt-1">{stat.label}</p>
+                  <p className="text-xs text-slate-400 dark:text-dark-muted mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -140,10 +140,10 @@ function QuickMoodRow() {
           whileHover={{ scale: 1.12, y: -3 }}
           whileTap={{ scale: 0.92 }}
           onClick={() => navigate('/check-in')}
-          className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-white/50 hover:bg-white/80 border border-white/60 transition-all"
+          className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-white/50 hover:bg-white/80 dark:bg-dark-card/50 dark:hover:bg-dark-card/80 border border-white/60 dark:border-dark-border/50 transition-all"
         >
           <span className="text-2xl">{m.emoji}</span>
-          <span className="text-xs text-slate-500 font-medium hidden sm:block">{m.label}</span>
+          <span className="text-xs text-slate-500 dark:text-dark-muted font-medium hidden sm:block">{m.label}</span>
         </motion.button>
       ))}
     </div>

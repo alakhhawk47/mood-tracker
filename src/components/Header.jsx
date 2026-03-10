@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { auth } from '../firebase';
 import { getTimeGreeting, getTimeEmoji } from '../utils/timeGreeting';
+import ThemeToggle from './ThemeToggle';
 
 export default function Header({ latestMood, avgScore }) {
   const user = auth.currentUser;
@@ -43,18 +44,21 @@ export default function Header({ latestMood, avgScore }) {
 
         <div>
           <p className="text-sm text-slate-500 font-medium">{greeting}</p>
-          <h1 className="text-2xl font-bold text-slate-800">{firstName}</h1>
-          <p className="text-xs text-slate-400 mt-0.5">How are you feeling today?</p>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-dark-text">{firstName}</h1>
+          <p className="text-xs text-slate-400 dark:text-dark-muted mt-0.5">How are you feeling today?</p>
         </div>
       </div>
 
-      {/* Right: Score badge */}
-      <div className="hidden sm:flex flex-col items-center bg-white/60 backdrop-blur-sm border border-white/70 rounded-2xl px-5 py-3 shadow-card">
-        <p className="text-xs text-slate-400 font-medium mb-0.5">Mood Score</p>
-        <p className={`text-2xl font-bold ${getScoreColor()}`}>
-          {avgScore > 0 ? `${avgScore}` : '—'}
-        </p>
-        <p className="text-xs text-slate-400">/10</p>
+      {/* Right: Score badge & Theme Toggle */}
+      <div className="flex items-center gap-4">
+        <ThemeToggle />
+        <div className="hidden sm:flex flex-col items-center bg-white/60 dark:bg-dark-card/60 backdrop-blur-sm border border-white/70 dark:border-dark-border/50 rounded-2xl px-5 py-3 shadow-card dark:shadow-none">
+          <p className="text-xs text-slate-400 dark:text-dark-muted font-medium mb-0.5">Mood Score</p>
+          <p className={`text-2xl font-bold ${getScoreColor()}`}>
+            {avgScore > 0 ? `${avgScore}` : '—'}
+          </p>
+          <p className="text-xs text-slate-400 dark:text-dark-muted">/10</p>
+        </div>
       </div>
     </motion.div>
   );

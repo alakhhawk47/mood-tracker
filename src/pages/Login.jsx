@@ -19,11 +19,13 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-wellness-gradient relative overflow-hidden flex items-center justify-center px-4">
+    <div className="min-h-screen bg-wellness-gradient dark:bg-dark-wellness-gradient relative overflow-hidden flex items-center justify-center px-4 transition-colors duration-300">
       {/* Background Blobs */}
-      <GradientBlob className="w-72 h-72 bg-soft-purple top-[-4rem] left-[-4rem] animation-delay-0" />
-      <GradientBlob className="w-64 h-64 bg-pastel-blue top-1/2 right-[-3rem] animation-delay-2000" style={{ animationDelay: '2s' }} />
-      <GradientBlob className="w-80 h-80 bg-soft-pink bottom-[-5rem] left-1/3 animation-delay-4000" style={{ animationDelay: '4s' }} />
+      <div className="absolute inset-0 pointer-events-none opacity-100 dark:opacity-30 transition-opacity duration-300">
+        <GradientBlob className="w-72 h-72 bg-soft-purple top-[-4rem] left-[-4rem] animation-delay-0" />
+        <GradientBlob className="w-64 h-64 bg-pastel-blue top-1/2 right-[-3rem] animation-delay-2000" style={{ animationDelay: '2s' }} />
+        <GradientBlob className="w-80 h-80 bg-soft-pink bottom-[-5rem] left-1/3 animation-delay-4000" style={{ animationDelay: '4s' }} />
+      </div>
 
       <div className="relative z-10 w-full max-w-md">
         {/* Logo / Brand */}
@@ -33,11 +35,11 @@ export default function Login() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <div className="w-20 h-20 bg-white/60 backdrop-blur-xl border border-white/70 rounded-3xl flex items-center justify-center shadow-glass mx-auto mb-4">
-            <span className="text-4xl font-bold text-deep-purple">E</span>
+          <div className="w-20 h-20 bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-3xl flex items-center justify-center shadow-glass dark:shadow-none mx-auto mb-4">
+            <span className="text-4xl font-bold text-deep-purple dark:text-dark-accent">E</span>
           </div>
-          <h1 className="text-3xl font-bold text-slate-800">EmoGraph</h1>
-          <p className="text-slate-500 text-sm mt-1">Your daily wellness companion</p>
+          <h1 className="text-3xl font-bold text-slate-800 dark:text-dark-text">EmoGraph</h1>
+          <p className="text-slate-500 dark:text-dark-muted text-sm mt-1">Your daily wellness companion</p>
         </motion.div>
 
         {/* Card */}
@@ -45,10 +47,10 @@ export default function Login() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-3xl shadow-glass-lg p-8"
+          className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-3xl shadow-glass-lg dark:shadow-none p-8"
         >
-          <h2 className="text-xl font-bold text-slate-800 mb-1">Welcome back</h2>
-          <p className="text-slate-500 text-sm mb-6">Sign in to track your emotional journey</p>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-dark-text mb-1">Welcome back</h2>
+          <p className="text-slate-500 dark:text-dark-muted text-sm mb-6">Sign in to track your emotional journey</p>
 
 
           {/* Features list */}
@@ -58,8 +60,8 @@ export default function Login() {
               { text: 'Visualize your emotional patterns' },
               { text: 'Guided wellness activities' },
             ].map((item) => (
-              <li key={item.text} className="flex items-center gap-3 text-sm text-slate-600">
-                <div className="w-1.5 h-1.5 rounded-full bg-soft-purple flex-shrink-0" />
+              <li key={item.text} className="flex items-center gap-3 text-sm text-slate-600 dark:text-dark-muted">
+                <div className="w-1.5 h-1.5 rounded-full bg-soft-purple dark:bg-dark-accent flex-shrink-0" />
                 {item.text}
               </li>
             ))}
@@ -72,10 +74,10 @@ export default function Login() {
             onClick={handleGoogleLogin}
             className="
               w-full flex items-center justify-center gap-3
-              bg-white hover:bg-slate-50
-              border border-slate-200 hover:border-soft-purple/40
-              text-slate-700 font-semibold py-3.5 rounded-2xl
-              shadow-md hover:shadow-glass transition-all duration-300
+              bg-white dark:bg-dark-card hover:bg-slate-50 dark:hover:bg-dark-card-hover
+              border border-slate-200 dark:border-dark-border/50 hover:border-soft-purple/40 dark:hover:border-dark-accent/40
+              text-slate-700 dark:text-dark-text font-semibold py-3.5 rounded-2xl
+              shadow-md hover:shadow-glass dark:shadow-none transition-all duration-300
             "
           >
             {/* Google G icon */}
@@ -88,9 +90,9 @@ export default function Login() {
             Continue with Google
           </motion.button>
 
-          <p className="text-xs text-slate-400 text-center mt-4">
+          <p className="text-xs text-slate-500 dark:text-dark-muted text-center mt-4">
             By continuing, you agree to our{' '}
-            <span className="text-soft-purple">Terms of Service</span>
+            <span className="text-soft-purple dark:text-dark-accent">Terms of Service</span>
           </p>
         </motion.div>
       </div>

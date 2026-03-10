@@ -41,9 +41,9 @@ export default function CheckIn() {
   const moodObj = getMoodById(selectedMood);
 
   return (
-    <div className="min-h-screen bg-wellness-gradient relative overflow-x-hidden">
+    <div className="min-h-screen bg-wellness-gradient dark:bg-dark-wellness-gradient relative overflow-x-hidden transition-colors duration-300">
       {/* Background blobs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-100 dark:opacity-30 transition-opacity duration-300">
         <GradientBlob className="w-80 h-80 bg-soft-purple top-[-4rem] left-[-4rem]" />
         <GradientBlob className="w-64 h-64 bg-soft-pink bottom-[8rem] right-[-3rem]" style={{ animationDelay: '3s' }} />
       </div>
@@ -61,15 +61,15 @@ export default function CheckIn() {
           >
             <button
               onClick={() => navigate('/dashboard')}
-              className="flex items-center gap-2 text-slate-400 hover:text-slate-600 text-sm mb-4 transition-colors"
+              className="flex items-center gap-2 text-slate-400 dark:text-dark-muted hover:text-slate-600 dark:hover:text-dark-text text-sm mb-4 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Back to Dashboard
             </button>
-            <h1 className="text-2xl font-bold text-slate-800">Mood Check-In</h1>
-            <p className="text-slate-500 text-sm mt-1">Take a moment to reflect on how you're feeling</p>
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-dark-text">Mood Check-In</h1>
+            <p className="text-slate-500 dark:text-dark-muted text-sm mt-1">Take a moment to reflect on how you're feeling</p>
           </motion.div>
 
           {/* Success message */}
@@ -79,10 +79,10 @@ export default function CheckIn() {
                 initial={{ opacity: 0, scale: 0.9, y: -10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 mb-6 text-center"
+                className="bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl p-5 mb-6 text-center"
               >
-                <p className="font-bold text-emerald-700">Mood logged successfully!</p>
-                <p className="text-emerald-500 text-sm">Redirecting to dashboard...</p>
+                <p className="font-bold text-emerald-700 dark:text-emerald-400">Mood logged successfully!</p>
+                <p className="text-emerald-500 dark:text-emerald-500/80 text-sm">Redirecting to dashboard...</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -94,10 +94,10 @@ export default function CheckIn() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl shadow-card p-6 mb-5"
+                className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-6 mb-5"
               >
-                <h2 className="font-bold text-slate-700 mb-1">How are you feeling?</h2>
-                <p className="text-slate-400 text-xs mb-5">Select the mood that best describes you right now</p>
+                <h2 className="font-bold text-slate-700 dark:text-dark-text mb-1">How are you feeling?</h2>
+                <p className="text-slate-400 dark:text-dark-muted text-xs mb-5">Select the mood that best describes you right now</p>
                 <MoodSelector selectedMood={selectedMood} onSelect={setSelectedMood} />
               </motion.div>
 
@@ -106,12 +106,12 @@ export default function CheckIn() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl shadow-card p-6 mb-5"
+                className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-6 mb-5"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <h2 className="font-bold text-slate-700">Mood Intensity</h2>
-                    <p className="text-slate-400 text-xs">Rate the intensity of your feeling</p>
+                    <h2 className="font-bold text-slate-700 dark:text-dark-text">Mood Intensity</h2>
+                    <p className="text-slate-400 dark:text-dark-muted text-xs">Rate the intensity of your feeling</p>
                   </div>
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold ${moodObj?.bgColor || 'bg-slate-100'} ${moodObj?.textColor || 'text-slate-700'}`}>
                     {scale}
@@ -129,7 +129,7 @@ export default function CheckIn() {
                     background: `linear-gradient(to right, #A78BFA ${(scale - 1) * 11.1}%, #E9D5FF ${(scale - 1) * 11.1}%)`,
                   }}
                 />
-                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                <div className="flex justify-between text-xs text-slate-400 dark:text-dark-muted mt-1">
                   <span>1 — Low</span>
                   <span>10 — High</span>
                 </div>
@@ -140,10 +140,10 @@ export default function CheckIn() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl shadow-card p-6 mb-5"
+                className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-6 mb-5"
               >
-                <h2 className="font-bold text-slate-700 mb-1">Write your thoughts</h2>
-                <p className="text-slate-400 text-xs mb-3">What's on your mind? (optional)</p>
+                <h2 className="font-bold text-slate-700 dark:text-dark-text mb-1">Write your thoughts</h2>
+                <p className="text-slate-400 dark:text-dark-muted text-xs mb-3">What's on your mind? (optional)</p>
                 <textarea
                   maxLength={200}
                   value={journal}
@@ -151,9 +151,9 @@ export default function CheckIn() {
                   placeholder="Today I feel..."
                   rows={4}
                   className="
-                    w-full p-4 rounded-xl bg-white/70 border border-white/80
-                    text-slate-700 text-sm placeholder-slate-300
-                    focus:outline-none focus:ring-2 focus:ring-soft-purple/30 focus:border-soft-purple/40
+                    w-full p-4 rounded-xl bg-white/70 dark:bg-slate-800/50 border border-white/80 dark:border-slate-700
+                    text-slate-700 dark:text-dark-text text-sm placeholder-slate-300 dark:placeholder-slate-500
+                    focus:outline-none focus:ring-2 focus:ring-soft-purple/30 dark:focus:ring-soft-purple/50 focus:border-soft-purple/40
                     resize-none transition-all
                   "
                 />
@@ -165,10 +165,10 @@ export default function CheckIn() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25 }}
-                className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl shadow-card p-6 mb-7"
+                className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-6 mb-7"
               >
-                <h2 className="font-bold text-slate-700 mb-1">What's influencing your mood?</h2>
-                <p className="text-slate-400 text-xs mb-4">Select all that apply (optional)</p>
+                <h2 className="font-bold text-slate-700 dark:text-dark-text mb-1">What's influencing your mood?</h2>
+                <p className="text-slate-400 dark:text-dark-muted text-xs mb-4">Select all that apply (optional)</p>
                 <div className="flex flex-wrap gap-2">
                   {INFLUENCES.map((inf) => {
                     const isSelected = selectedInfluences.includes(inf.id);
@@ -182,8 +182,8 @@ export default function CheckIn() {
                           flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium
                           border-2 transition-all duration-200
                           ${isSelected
-                            ? 'bg-gradient-to-r from-soft-purple to-deep-purple text-white border-transparent shadow-mood'
-                            : 'bg-white/70 border-white/70 text-slate-600 hover:border-soft-purple/30'
+                            ? 'bg-gradient-to-r from-soft-purple to-deep-purple text-white border-transparent shadow-mood dark:shadow-none'
+                            : 'bg-white/70 dark:bg-dark-card/40 border-white/70 dark:border-dark-border/50 text-slate-600 dark:text-dark-muted hover:border-soft-purple/30 dark:hover:border-soft-purple/50 shadow-sm dark:shadow-none'
                           }
                         `}
                       >
@@ -206,8 +206,8 @@ export default function CheckIn() {
                 className={`
                   w-full py-4 rounded-2xl font-bold text-base shadow-lg transition-all duration-300
                   ${selectedMood
-                    ? 'bg-gradient-to-r from-soft-purple to-deep-purple text-white shadow-mood hover:shadow-glass-lg'
-                    : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                    ? 'bg-gradient-to-r from-soft-purple to-deep-purple text-white shadow-mood hover:shadow-glass-lg dark:shadow-none'
+                    : 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'
                   }
                 `}
               >

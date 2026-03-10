@@ -70,9 +70,9 @@ export default function Timeline() {
   }
 
   return (
-    <div className="min-h-screen bg-wellness-gradient relative overflow-x-hidden">
+    <div className="min-h-screen bg-wellness-gradient dark:bg-dark-wellness-gradient relative overflow-x-hidden transition-colors duration-300">
       {/* Background blobs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-100 dark:opacity-30 transition-opacity duration-300">
         <GradientBlob className="w-96 h-96 bg-pastel-blue top-[-5rem] left-[-5rem]" />
         <GradientBlob className="w-72 h-72 bg-soft-pink bottom-[8rem] right-[-3rem]" style={{ animationDelay: '3s' }} />
       </div>
@@ -88,8 +88,8 @@ export default function Timeline() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <h1 className="text-2xl font-bold text-slate-800">Mood Timeline</h1>
-            <p className="text-slate-500 text-sm mt-1">Your emotional journey, day by day</p>
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-dark-text">Mood Timeline</h1>
+            <p className="text-slate-500 dark:text-dark-muted text-sm mt-1">Your emotional journey, day by day</p>
           </motion.div>
 
           {/* Calendar Card */}
@@ -97,24 +97,24 @@ export default function Timeline() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl shadow-card p-5 mb-5"
+            className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-5 mb-5"
           >
             {/* Month nav */}
             <div className="flex items-center justify-between mb-5">
               <button
                 onClick={handlePrev}
-                className="w-9 h-9 rounded-xl bg-white/70 hover:bg-white border border-white/70 flex items-center justify-center text-slate-600 hover:text-deep-purple transition-all shadow-sm"
+                className="w-9 h-9 rounded-xl bg-white/70 dark:bg-dark-card/70 hover:bg-white dark:hover:bg-dark-card border border-white/70 dark:border-dark-border/50 flex items-center justify-center text-slate-600 dark:text-dark-muted hover:text-deep-purple dark:hover:text-soft-purple transition-all shadow-sm dark:shadow-none"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
 
-              <h2 className="text-base font-bold text-slate-700">{monthName}</h2>
+              <h2 className="text-base font-bold text-slate-700 dark:text-dark-text">{monthName}</h2>
 
               <button
                 onClick={handleNext}
-                className="w-9 h-9 rounded-xl bg-white/70 hover:bg-white border border-white/70 flex items-center justify-center text-slate-600 hover:text-deep-purple transition-all shadow-sm"
+                className="w-9 h-9 rounded-xl bg-white/70 dark:bg-dark-card/70 hover:bg-white dark:hover:bg-dark-card border border-white/70 dark:border-dark-border/50 flex items-center justify-center text-slate-600 dark:text-dark-muted hover:text-deep-purple dark:hover:text-soft-purple transition-all shadow-sm dark:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={viewYear === today.getFullYear() && viewMonth === today.getMonth()}
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -126,7 +126,7 @@ export default function Timeline() {
             {/* Weekday headers */}
             <div className="grid grid-cols-7 gap-1.5 mb-1.5">
               {WEEKDAYS.map((d) => (
-                <div key={d} className="text-center text-xs font-semibold text-slate-400 py-1">
+                <div key={d} className="text-center text-xs font-semibold text-slate-400 dark:text-dark-muted py-1">
                   {d}
                 </div>
               ))}
@@ -191,14 +191,14 @@ export default function Timeline() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="mt-6 bg-white/50 backdrop-blur-sm border border-white/60 rounded-2xl p-4"
+            className="mt-6 bg-white/50 dark:bg-dark-card/50 backdrop-blur-sm border border-white/60 dark:border-dark-border/50 rounded-2xl p-4 shadow-sm dark:shadow-none"
           >
-            <p className="text-xs font-semibold text-slate-500 mb-3">Mood Color Legend</p>
+            <p className="text-xs font-semibold text-slate-500 dark:text-dark-muted mb-3">Mood Color Legend</p>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {MOOD_LEGEND.map((m) => (
                 <div key={m.label} className="flex items-center gap-1.5">
                   <div className={`w-4 h-4 rounded-md bg-gradient-to-br ${m.color} flex-shrink-0`} />
-                  <span className="text-xs text-slate-500">{m.label}</span>
+                  <span className="text-xs text-slate-500 dark:text-dark-muted">{m.label}</span>
                 </div>
               ))}
             </div>

@@ -5,9 +5,9 @@ import { getMoodByLabel, getMoodById } from '../utils/moodData';
 export default function MoodHistory({ history, onEdit, onDelete }) {
   if (!history || history.length === 0) {
     return (
-      <div className="text-center py-12 text-slate-400">
+      <div className="text-center py-12 text-slate-400 dark:text-dark-muted">
         <div className="text-5xl mb-4">🌱</div>
-        <p className="font-medium text-slate-500">No mood entries yet</p>
+        <p className="font-medium text-slate-500 dark:text-dark-muted">No mood entries yet</p>
         <p className="text-sm mt-1">Start tracking to see your history here</p>
       </div>
     );
@@ -25,34 +25,34 @@ export default function MoodHistory({ history, onEdit, onDelete }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 16, scale: 0.95 }}
               transition={{ delay: i * 0.04, duration: 0.35 }}
-              className="flex items-center gap-4 bg-white/60 backdrop-blur-sm border border-white/70 rounded-2xl p-4 shadow-sm hover:shadow-card transition-shadow"
+              className="flex items-center gap-4 bg-white/60 dark:bg-dark-card/60 backdrop-blur-sm border border-white/70 dark:border-dark-border/50 rounded-2xl p-4 shadow-sm dark:shadow-none hover:shadow-card dark:hover:bg-dark-card-hover transition-all"
             >
               {/* Emoji */}
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 ${mood?.bgColor || 'bg-slate-100'}`}>
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 ${mood?.bgColor || 'bg-slate-100'} dark:!bg-slate-800`}>
                 {mood?.emoji || '😐'}
               </div>
 
               {/* Info */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
-                  <span className={`text-sm font-semibold ${mood?.textColor || 'text-slate-700'}`}>
+                  <span className={`text-sm font-semibold ${mood?.textColor || 'text-slate-700'} dark:!text-dark-text`}>
                     {mood?.label || item.mood}
                   </span>
-                  <span className="text-xs text-slate-400">·</span>
-                  <span className="text-xs text-slate-400">{item.date}</span>
+                  <span className="text-xs text-slate-400 dark:text-dark-muted">·</span>
+                  <span className="text-xs text-slate-400 dark:text-dark-muted">{item.date}</span>
                 </div>
                 {item.note && (
-                  <p className="text-xs text-slate-500 truncate">{item.note}</p>
+                  <p className="text-xs text-slate-500 dark:text-dark-muted truncate">{item.note}</p>
                 )}
                 {item.influences?.length > 0 && (
                   <div className="flex gap-1 flex-wrap mt-1">
                     {item.influences.slice(0, 3).map((inf) => (
-                      <span key={inf} className="text-xs bg-white/80 border border-slate-200 text-slate-500 px-2 py-0.5 rounded-full">
+                      <span key={inf} className="text-xs bg-white/80 dark:bg-dark-card/80 border border-slate-200 dark:border-dark-border/50 text-slate-500 dark:text-dark-muted px-2 py-0.5 rounded-full">
                         {inf}
                       </span>
                     ))}
                     {item.influences.length > 3 && (
-                      <span className="text-xs text-slate-400">+{item.influences.length - 3}</span>
+                      <span className="text-xs text-slate-400 dark:text-dark-muted">+{item.influences.length - 3}</span>
                     )}
                   </div>
                 )}
@@ -60,10 +60,10 @@ export default function MoodHistory({ history, onEdit, onDelete }) {
 
               {/* Scale badge */}
               <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm ${mood?.bgColor || 'bg-slate-100'} ${mood?.textColor || 'text-slate-700'}`}>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm ${mood?.bgColor || 'bg-slate-100'} ${mood?.textColor || 'text-slate-700'} dark:!bg-slate-800 dark:!text-dark-text`}>
                   {item.scale}
                 </div>
-                <span className="text-xs text-slate-400">/10</span>
+                <span className="text-xs text-slate-400 dark:text-dark-muted">/10</span>
               </div>
 
               {/* Actions */}
@@ -71,7 +71,7 @@ export default function MoodHistory({ history, onEdit, onDelete }) {
                 {onEdit && (
                   <button
                     onClick={() => onEdit(item)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-deep-purple hover:bg-soft-purple/10 transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-deep-purple hover:bg-soft-purple/10 dark:text-dark-muted dark:hover:text-dark-accent dark:hover:bg-dark-accent/10 transition-colors"
                     title="Edit"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +82,7 @@ export default function MoodHistory({ history, onEdit, onDelete }) {
                 {onDelete && (
                   <button
                     onClick={() => onDelete(item.id)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:text-dark-muted dark:hover:text-rose-400 dark:hover:bg-rose-900/30 transition-colors"
                     title="Delete"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -21,9 +21,9 @@ function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     const score = payload[0].value;
     return (
-      <div className="bg-white/90 backdrop-blur-sm border border-white/70 rounded-xl px-4 py-3 shadow-card text-xs">
-        <p className="font-semibold text-slate-700 mb-1">{label}</p>
-        <p className="text-soft-purple font-bold text-sm">Score: {score?.toFixed(1) ?? '—'}/10</p>
+      <div className="bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm border border-white/70 dark:border-dark-border/50 rounded-xl px-4 py-3 shadow-card dark:shadow-none text-xs">
+        <p className="font-semibold text-slate-700 dark:text-dark-text mb-1">{label}</p>
+        <p className="text-soft-purple dark:text-dark-accent font-bold text-sm">Score: {score?.toFixed(1) ?? '—'}/10</p>
       </div>
     );
   }
@@ -77,9 +77,9 @@ export default function MoodAnalytics({ weeklyData = [], pieData = [], avgScore 
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1, duration: 0.45 }}
-            className={`bg-gradient-to-br ${card.gradient} border border-white/70 backdrop-blur-sm rounded-2xl p-5 shadow-card`}
+            className={`bg-gradient-to-br ${card.gradient} dark:opacity-90 border border-white/70 dark:border-dark-border/50 backdrop-blur-sm rounded-2xl p-5 shadow-card dark:shadow-none`}
           >
-            <p className="text-xs text-slate-500 font-medium mb-1">{card.label}</p>
+            <p className="text-xs text-slate-500 dark:text-dark-muted font-medium mb-1">{card.label}</p>
             <p className={`text-xl font-bold ${card.valueColor}`}>{card.value}</p>
           </motion.div>
         ))}
@@ -90,9 +90,9 @@ export default function MoodAnalytics({ weeklyData = [], pieData = [], avgScore 
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl shadow-card p-6"
+        className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-6"
       >
-        <h3 className="font-bold text-slate-700 text-sm mb-4">Weekly Mood Trend</h3>
+        <h3 className="font-bold text-slate-700 dark:text-dark-text text-sm mb-4">Weekly Mood Trend</h3>
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
             <defs>
@@ -124,9 +124,9 @@ export default function MoodAnalytics({ weeklyData = [], pieData = [], avgScore 
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="bg-white/60 backdrop-blur-xl border border-white/70 rounded-2xl shadow-card p-6"
+          className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-6"
         >
-          <h3 className="font-bold text-slate-700 text-sm mb-4">Mood Distribution</h3>
+          <h3 className="font-bold text-slate-700 dark:text-dark-text text-sm mb-4">Mood Distribution</h3>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
@@ -170,8 +170,8 @@ export default function MoodAnalytics({ weeklyData = [], pieData = [], avgScore 
                       className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                       style={{ backgroundColor: moodItem?.chartColor || PIE_COLORS[i] }}
                     />
-                    <span className="text-xs text-slate-600 font-medium">{entry.name}</span>
-                    <span className="text-xs text-slate-400 ml-auto">{entry.value}</span>
+                    <span className="text-xs text-slate-600 dark:text-dark-muted font-medium">{entry.name}</span>
+                    <span className="text-xs text-slate-400 dark:text-dark-muted ml-auto">{entry.value}</span>
                   </div>
                 );
               })}

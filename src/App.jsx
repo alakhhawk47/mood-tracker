@@ -9,8 +9,10 @@ import CheckIn from "./pages/CheckIn";
 import Analytics from "./pages/Analytics";
 import Timeline from "./pages/Timeline";
 import Onboarding from "./pages/Onboarding";
+import useTheme from "./hooks/useTheme";
 
 export default function App() {
+  useTheme(); // Initialize theme globally
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 

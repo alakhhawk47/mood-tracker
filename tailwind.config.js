@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -14,13 +15,23 @@ export default {
         'warm-beige': '#F5F5F4',
         'deep-purple': '#7C3AED',
         'muted-purple': '#DDD6FE',
+        // Dark mode colors
+        'dark-bg': '#0F172A',
+        'dark-card': '#1E293B',
+        'dark-card-hover': '#334155',
+        'dark-border': '#334155',
+        'dark-text': '#F8FAFC',
+        'dark-muted': '#94A3B8',
+        'dark-accent': '#C084FC',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'wellness-gradient': 'linear-gradient(135deg, #E9D5FF 0%, #BFDBFE 50%, #FBCFE8 100%)',
+        'dark-wellness-gradient': 'linear-gradient(135deg, #0F172A 0%, #17112E 50%, #1E1B4B 100%)',
         'card-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%)',
+        'dark-card-gradient': 'linear-gradient(135deg, rgba(30,41,59,0.7) 0%, rgba(15,23,42,0.4) 100%)',
         'purple-gradient': 'linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%)',
         'blue-gradient': 'linear-gradient(135deg, #BFDBFE 0%, #93C5FD 100%)',
         'pink-gradient': 'linear-gradient(135deg, #FBCFE8 0%, #F9A8D4 100%)',

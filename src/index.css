@@ -19,6 +19,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #E9D5FF 0%, #BFDBFE 50%, #FBCFE8 100%);
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background: linear-gradient(135deg, #0F172A 0%, #17112E 50%, #1E1B4B 100%);
+  color: #F8FAFC;
 }
 
 /* ===== GLASSMORPHISM UTILITIES ===== */

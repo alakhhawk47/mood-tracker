@@ -40,16 +40,16 @@ export default function ActivityCard({ activity, index }) {
       style={{ transformStyle: 'preserve-3d' }}
       className={`
         relative overflow-hidden rounded-2xl p-5
-        bg-gradient-to-br ${activity.gradient}
-        border border-white/70 shadow-card
+        bg-gradient-to-br ${activity.gradient} dark:opacity-90
+        border border-white/70 dark:border-dark-border/50 shadow-card dark:shadow-none
         cursor-pointer group
       `}
     >
       {/* Floating shimmer top-right */}
-      <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/30 blur-2xl" />
+      <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/30 dark:bg-white/10 blur-2xl" />
 
       {/* Duration badge */}
-      <div className="absolute top-3 right-3 bg-white/60 backdrop-blur-sm px-2 py-0.5 rounded-full text-xs font-medium text-slate-600">
+      <div className="absolute top-3 right-3 bg-white/60 dark:bg-dark-card/60 backdrop-blur-sm px-2 py-0.5 rounded-full text-xs font-medium text-slate-600 dark:text-dark-muted">
         {activity.duration}
       </div>
 
@@ -57,15 +57,15 @@ export default function ActivityCard({ activity, index }) {
         {ACTIVITY_ICONS[activity.iconId]}
       </div>
 
-      <h3 className="font-bold text-slate-800 text-base mb-1">{activity.title}</h3>
-      <p className="text-slate-500 text-xs mb-4 leading-relaxed">{activity.description}</p>
+      <h3 className="font-bold text-slate-800 dark:text-dark-text text-base mb-1">{activity.title}</h3>
+      <p className="text-slate-500 dark:text-dark-muted text-xs mb-4 leading-relaxed">{activity.description}</p>
 
       <button
         onClick={() => navigate('/check-in')}
         className="
           flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold
-          bg-white/70 hover:bg-white text-slate-700
-          transition-all duration-200 group-hover:shadow-md
+          bg-white/70 hover:bg-white dark:bg-dark-card/70 dark:hover:bg-dark-card dark:text-dark-text text-slate-700
+          transition-all duration-200 group-hover:shadow-md dark:group-hover:shadow-none
         "
       >
         Start

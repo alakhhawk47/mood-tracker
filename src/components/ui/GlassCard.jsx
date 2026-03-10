@@ -17,8 +17,8 @@ export default function GlassCard({
       whileHover={hover ? { y: -4, boxShadow: '0 16px 48px rgba(167, 139, 250, 0.22)' } : undefined}
       onClick={onClick}
       className={`
-        bg-white/60 backdrop-blur-xl border border-white/70
-        rounded-2xl shadow-card
+        bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50
+        rounded-2xl shadow-card dark:shadow-none
         ${onClick ? 'cursor-pointer' : ''}
         ${className}
       `}

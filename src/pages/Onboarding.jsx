@@ -7,6 +7,7 @@ const SCREENS = [
   {
     id: 'welcome',
     bg: 'from-violet-400 via-purple-300 to-fuchsia-300',
+    darkBg: 'dark:from-violet-900 dark:via-purple-900 dark:to-fuchsia-900',
     illustration: (
       <div className="relative flex items-center justify-center w-48 h-48 mx-auto mb-8">
         {/* Outer ring */}
@@ -38,6 +39,7 @@ const SCREENS = [
   {
     id: 'features',
     bg: 'from-sky-300 via-blue-300 to-indigo-300',
+    darkBg: 'dark:from-sky-900 dark:via-blue-900 dark:to-indigo-900',
     illustration: null,
     title: 'Everything You Need',
     subtitle: 'For Your Mental Wellbeing',
@@ -51,7 +53,7 @@ const SCREENS = [
         ),
         title: 'Track Your Emotions',
         desc: 'Log your daily mood in seconds with our intuitive emoji selector',
-        gradient: 'from-violet-100 to-purple-100',
+        gradient: 'from-violet-100 to-purple-100 dark:from-violet-900/40 dark:to-purple-900/40',
       },
       {
         icon: (
@@ -61,7 +63,7 @@ const SCREENS = [
         ),
         title: 'Understand Patterns',
         desc: 'Discover trends and insights from your emotional data over time',
-        gradient: 'from-sky-100 to-blue-100',
+        gradient: 'from-sky-100 to-blue-100 dark:from-sky-900/40 dark:to-blue-900/40',
       },
       {
         icon: (
@@ -71,13 +73,14 @@ const SCREENS = [
         ),
         title: 'Improve Wellbeing',
         desc: 'Get personalized suggestions to support your mental health journey',
-        gradient: 'from-emerald-100 to-teal-100',
+        gradient: 'from-emerald-100 to-teal-100 dark:from-emerald-900/40 dark:to-teal-900/40',
       },
     ],
   },
   {
     id: 'start',
     bg: 'from-rose-300 via-pink-300 to-fuchsia-300',
+    darkBg: 'dark:from-rose-900 dark:via-pink-900 dark:to-fuchsia-900',
     illustration: null,
     title: 'Start Your',
     subtitle: 'Mood Journey',
@@ -109,13 +112,13 @@ export default function Onboarding() {
 
   const handleFinish = () => {
     localStorage.setItem('onboarded', 'true');
-    navigate('/');
+    window.location.href = '/';
   };
 
   const current = SCREENS[screen];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${current.bg} relative overflow-hidden flex flex-col`}>
+    <div className={`min-h-screen bg-gradient-to-br ${current.bg} ${current.darkBg} relative overflow-hidden flex flex-col transition-colors duration-500`}>
       {/* Blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute w-72 h-72 rounded-full bg-white/20 blur-3xl -top-16 -left-16" />
@@ -175,12 +178,12 @@ export default function Onboarding() {
                       transition={{ delay: 0.1 + i * 0.12, duration: 0.45 }}
                       className={`flex items-center gap-4 bg-gradient-to-r ${feat.gradient} backdrop-blur-sm rounded-2xl p-4 border border-white/60 shadow-card`}
                     >
-                      <div className="w-12 h-12 rounded-xl bg-white/70 flex items-center justify-center flex-shrink-0 shadow-sm">
+                      <div className="w-12 h-12 rounded-xl bg-white/70 dark:bg-white/10 flex items-center justify-center flex-shrink-0 shadow-sm">
                         {feat.icon}
                       </div>
                       <div>
-                        <p className="font-bold text-slate-700 text-sm">{feat.title}</p>
-                        <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">{feat.desc}</p>
+                        <p className="font-bold text-slate-700 dark:text-white/90 text-sm">{feat.title}</p>
+                        <p className="text-slate-500 dark:text-white/70 text-xs mt-0.5 leading-relaxed">{feat.desc}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -204,7 +207,7 @@ export default function Onboarding() {
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.15 + i * 0.07, duration: 0.4, ease: 'backOut' }}
                       whileHover={{ scale: 1.15, y: -4 }}
-                      className="w-12 h-12 rounded-2xl bg-white/30 backdrop-blur-sm border border-white/50 flex items-center justify-center text-2xl shadow-md cursor-default"
+                      className="w-12 h-12 rounded-2xl bg-white/30 dark:bg-white/10 backdrop-blur-sm border border-white/50 dark:border-white/20 flex items-center justify-center text-2xl shadow-md cursor-default"
                     >
                       {emoji}
                     </motion.div>
@@ -240,7 +243,7 @@ export default function Onboarding() {
           onClick={handleNext}
           className="
             w-full py-4 rounded-2xl font-bold text-base
-            bg-white text-deep-purple
+            bg-white dark:bg-dark-card text-deep-purple dark:text-dark-text
             shadow-xl hover:shadow-2xl transition-all duration-300
           "
         >

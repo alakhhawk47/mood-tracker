@@ -62,7 +62,7 @@ export default function Sidebar() {
         initial={{ x: -80, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="hidden lg:flex flex-col w-64 min-h-screen bg-white/50 backdrop-blur-xl border-r border-white/70 px-4 py-8 fixed left-0 top-0 z-20"
+        className="hidden lg:flex flex-col w-64 min-h-screen bg-white/50 dark:bg-dark-card/50 backdrop-blur-xl border-r border-white/70 dark:border-dark-border/50 px-4 py-8 fixed left-0 top-0 z-20 transition-colors duration-300"
       >
         {/* Logo */}
         <div className="flex items-center gap-3 px-3 mb-10">
@@ -70,8 +70,8 @@ export default function Sidebar() {
             E
           </div>
           <div>
-            <h2 className="font-bold text-slate-800 text-lg leading-tight">EmoGraph</h2>
-            <p className="text-slate-400 text-xs">Mood Tracker</p>
+            <h2 className="font-bold text-slate-800 dark:text-dark-text text-lg leading-tight">EmoGraph</h2>
+            <p className="text-slate-400 dark:text-dark-muted text-xs">Mood Tracker</p>
           </div>
         </div>
 
@@ -84,8 +84,8 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-r from-soft-purple/20 to-pastel-blue/20 text-deep-purple border border-soft-purple/30 shadow-sm'
-                    : 'text-slate-500 hover:bg-white/60 hover:text-slate-800'
+                    ? 'bg-gradient-to-r from-soft-purple/20 to-pastel-blue/20 text-deep-purple dark:text-dark-accent border border-soft-purple/30 shadow-sm dark:shadow-none'
+                    : 'text-slate-500 dark:text-dark-muted hover:bg-white/60 dark:hover:bg-dark-card/60 hover:text-slate-800 dark:hover:text-dark-text'
                 }`
               }
             >
@@ -98,7 +98,7 @@ export default function Sidebar() {
         {/* Logout */}
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-rose-400 hover:bg-rose-50 transition-all duration-200 mt-4"
+          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 transition-all duration-200 mt-4"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -113,7 +113,7 @@ export default function Sidebar() {
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="lg:hidden fixed bottom-0 left-0 right-0 z-20 bg-white/80 backdrop-blur-xl border-t border-white/70 px-4 py-2 flex justify-around"
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-20 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-xl border-t border-white/70 dark:border-dark-border/50 px-4 py-2 flex justify-around transition-colors duration-300"
       >
         {NAV_ITEMS.map((item) => (
           <NavLink
@@ -122,8 +122,8 @@ export default function Sidebar() {
             className={({ isActive }) =>
               `flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-xs font-medium transition-all duration-200 ${
                 isActive
-                  ? 'text-deep-purple bg-soft-purple/10'
-                  : 'text-slate-400 hover:text-slate-600'
+                  ? 'text-deep-purple dark:text-dark-accent bg-soft-purple/10'
+                  : 'text-slate-400 dark:text-dark-muted hover:text-slate-600 dark:hover:text-dark-text'
               }`
             }
           >
