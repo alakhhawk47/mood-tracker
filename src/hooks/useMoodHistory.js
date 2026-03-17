@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { auth } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
 import { MOODS } from '../utils/moodData';
 
 const STORAGE_KEY = 'moodHistory';
@@ -18,6 +18,7 @@ function saveHistory(history) {
 }
 
 export function useMoodHistory() {
+  const { user } = useAuth();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +27,7 @@ export function useMoodHistory() {
     setLoading(false);
   }, []);
 
-  const userEmail = auth.currentUser?.email;
+  const userEmail = user?.email;
 
   const userHistory = history.filter(
     (h) => !userEmail || h.user === userEmail
@@ -43,7 +44,7 @@ export function useMoodHistory() {
         influences,
         date: new Date().toLocaleDateString(),
         timestamp: Date.now(),
-        user: auth.currentUser?.email || 'guest',
+        user: user?.email || 'guest',
       };
       const updated = [entry, ...history];
       setHistory(updated);

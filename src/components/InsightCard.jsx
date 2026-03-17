@@ -7,22 +7,19 @@ export default function InsightCard({ icon, title, value, description, gradient,
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.5, ease: 'easeOut' }}
-      whileHover={{ y: -4, boxShadow: '0 16px 40px rgba(167,139,250,0.2)' }}
-      className={`relative overflow-hidden rounded-2xl p-5 border border-white/70 dark:border-dark-border/50 shadow-card dark:shadow-none bg-gradient-to-br ${gradient} dark:opacity-90`}
+      whileHover={{ y: -4, boxShadow: '0 16px 40px rgba(124,92,252,0.15)' }}
+      className={`relative overflow-hidden rounded-2xl p-5 border border-white/40 dark:border-dark-border/30 shadow-card dark:shadow-none bg-gradient-to-br ${gradient} dark:bg-dark-card/40 dark:from-dark-card/50 dark:to-dark-card/30 transition-colors duration-300`}
     >
-      {/* Decorative shimmer blob */}
-      <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-white/25 dark:bg-white/10 blur-xl" />
+      <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-white/20 dark:bg-white/5 blur-xl" />
 
-      {/* Icon */}
-      <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${accent} shadow-sm`}>
+      <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${accent} dark:bg-dark-card/60 shadow-sm`}>
         {icon}
       </div>
 
-      {/* Content */}
-      <p className="text-xs font-semibold text-slate-500 dark:text-dark-muted uppercase tracking-wide mb-1">{title}</p>
-      <p className="text-2xl font-bold text-slate-800 dark:text-dark-text leading-tight mb-1">{value}</p>
+      <p className="text-xs font-body font-semibold text-gray-500 dark:text-dark-muted uppercase tracking-wide mb-1">{title}</p>
+      <p className="text-2xl font-heading font-bold text-day-text dark:text-dark-text leading-tight mb-1">{value}</p>
       {description && (
-        <p className="text-xs text-slate-500 dark:text-dark-muted leading-relaxed">{description}</p>
+        <p className="text-xs text-gray-500 dark:text-dark-muted font-body leading-relaxed">{description}</p>
       )}
     </motion.div>
   );

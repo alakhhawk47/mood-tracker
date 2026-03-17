@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { auth } from "./firebase";
+import { useAuth } from "./contexts/AuthContext";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon } from "react-icons/fa";
 import {
@@ -15,6 +15,7 @@ import {
 } from "recharts";
 
 function Tracker() {
+  const { user } = useAuth();
 
   const [darkMode, setDarkMode] = useState(true);
   const [selectedMood, setSelectedMood] = useState(null);
@@ -59,7 +60,7 @@ const [selectedItems, setSelectedItems] = useState([]);
       scale: Number(scale),
       note: journal,
       date: new Date().toLocaleDateString(),
-      user: auth.currentUser?.email
+      user: user?.email
     };
 
     const updated = [entry, ...history];
@@ -331,7 +332,7 @@ backdrop-blur-xl rounded-3xl shadow-2xl p-10`}></div>
 </div>
 </div>
          {/* 📅 History */}
-{history.filter(h=>h.user===auth.currentUser?.email).length > 0 && (
+{history.filter(h=>h.user===user?.email).length > 0 && (
   <div className="mt-10">
     <h2 className="text-2xl font-bold mb-4">Your Mood History</h2>
 
@@ -346,7 +347,7 @@ backdrop-blur-xl rounded-3xl shadow-2xl p-10`}></div>
     )}
 
     {history
-      .filter(h => h.user === auth.currentUser?.email)
+      .filter(h => h.user === user?.email)
       .map((item) => (
         <div
           key={item.id}

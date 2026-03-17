@@ -6,25 +6,33 @@ import useTheme from '../hooks/useTheme';
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
+  const handleToggle = () => {
+    document.documentElement.classList.add('theme-transitioning');
+    toggleTheme();
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 600);
+  };
+
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      onClick={toggleTheme}
-      className={`relative w-10 h-10 flex items-center justify-center rounded-xl shadow-md transition-colors duration-300 ${
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.92 }}
+      onClick={handleToggle}
+      className={`relative w-11 h-11 flex items-center justify-center rounded-xl shadow-md transition-all duration-500 ${
         theme === 'dark'
-          ? 'bg-dark-card border border-dark-border text-yellow-300 hover:bg-dark-card-hover'
-          : 'bg-white/80 backdrop-blur-md border border-white text-indigo-500 hover:bg-white'
+          ? 'bg-night-surface border border-dark-border text-yellow-300 hover:bg-dark-card-hover'
+          : 'bg-white/70 backdrop-blur-xl border border-white/60 text-day-primary hover:bg-white'
       }`}
       aria-label="Toggle Theme"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={theme === 'dark' ? 'moon' : 'sun'}
-          initial={{ y: -20, opacity: 0, rotate: -90 }}
+          initial={{ y: -20, opacity: 0, rotate: -180 }}
           animate={{ y: 0, opacity: 1, rotate: 0 }}
-          exit={{ y: 20, opacity: 0, rotate: 90 }}
-          transition={{ duration: 0.2 }}
+          exit={{ y: 20, opacity: 0, rotate: 180 }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
           className="absolute"
         >
           {theme === 'dark' ? <FiMoon size={20} /> : <FiSun size={20} />}

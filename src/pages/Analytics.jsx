@@ -1,36 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
+} from 'recharts';
 import Sidebar from '../components/Sidebar';
 import MoodAnalytics from '../components/MoodAnalytics';
 import MoodHistory from '../components/MoodHistory';
 import InsightCard from '../components/InsightCard';
 import GradientBlob from '../components/ui/GradientBlob';
+import GlassCard from '../components/ui/GlassCard';
 import { useMoodHistory } from '../hooks/useMoodHistory';
-
-const SUGGESTIONS_MAP = {
-  happy: 'Keep it up! Share your positivity with someone today.',
-  calm: 'Great state. Try journaling to deepen your clarity.',
-  sad: 'Be gentle with yourself. A short walk or breathing exercise can help.',
-  angry: 'Take deep breaths. A 5-minute meditation can release tension.',
-  tired: 'Rest is productive. Prioritize sleep tonight.',
-  excited: 'Channel that energy! Set a small goal you can finish today.',
-};
 
 export default function Analytics() {
   const navigate = useNavigate();
   const {
-    history,
-    avgScore,
-    trend,
-    weeklyData,
-    pieData,
-    deleteEntry,
-    streak,
-    positivePct,
-    suggestion,
-    latestMood,
+    history, avgScore, trend, weeklyData, pieData, deleteEntry,
+    streak, positivePct, suggestion, latestMood,
   } = useMoodHistory();
+
+  // Stress level data (using inverse of scale)
+  const stressData = weeklyData.map((d) => ({
+    day: d.day,
+    stress: d.score !== null ? Math.max(0, 10 - d.score).toFixed(1) : null,
+    score: d.score !== null ? d.score.toFixed(1) : null,
+  }));
 
   const insightCards = [
     {
@@ -45,7 +39,7 @@ export default function Analytics() {
       description: streak >= 2
         ? `You logged moods for ${streak} days in a row. Keep it going!`
         : 'Log your mood today to start a streak.',
-      gradient: 'from-orange-50 to-amber-100',
+      gradient: 'from-orange-50 to-amber-50',
       accent: 'bg-orange-100',
     },
     {
@@ -61,7 +55,7 @@ export default function Analytics() {
           ? `You felt positive ${positivePct}% of the week. Great week!`
           : `${positivePct}% positive days this week. Small steps help.`
         : 'Log moods this week to see your summary.',
-      gradient: 'from-violet-50 to-purple-100',
+      gradient: 'from-violet-50 to-purple-50',
       accent: 'bg-violet-100',
     },
     {
@@ -71,120 +65,89 @@ export default function Analytics() {
         </svg>
       ),
       title: 'Suggestion',
-      value: latestMood
-        ? latestMood.charAt(0).toUpperCase() + latestMood.slice(1)
-        : 'Start logging',
+      value: latestMood ? latestMood.charAt(0).toUpperCase() + latestMood.slice(1) : 'Start logging',
       description: suggestion,
-      gradient: 'from-emerald-50 to-teal-100',
+      gradient: 'from-emerald-50 to-teal-50',
       accent: 'bg-emerald-100',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-wellness-gradient dark:bg-dark-wellness-gradient relative overflow-x-hidden transition-colors duration-300">
-      {/* Background blobs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-100 dark:opacity-30 transition-opacity duration-300">
-        <GradientBlob className="w-72 h-72 bg-pastel-blue top-[-3rem] right-[-3rem]" />
-        <GradientBlob className="w-80 h-80 bg-lavender bottom-[6rem] left-[-4rem]" style={{ animationDelay: '4s' }} />
+    <div className="min-h-screen bg-day-bg dark:bg-night-bg relative overflow-x-hidden transition-colors duration-500">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-50 dark:opacity-15">
+        <GradientBlob className="w-72 h-72 bg-day-primary/20 top-[-3rem] right-[-3rem]" />
+        <GradientBlob className="w-80 h-80 bg-day-accent/20 bottom-[6rem] left-[-4rem]" style={{ animationDelay: '4s' }} />
       </div>
 
       <Sidebar />
 
       <div className="lg:pl-64 relative z-10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 pb-28 lg:pb-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 pb-28 lg:pb-8">
 
           {/* Page Header */}
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
-          >
-            <h1 className="text-2xl font-bold text-slate-800 dark:text-dark-text">Mood Analytics</h1>
-            <p className="text-slate-500 dark:text-dark-muted text-sm mt-1">Explore your emotional patterns over time</p>
+          <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+            <h1 className="text-2xl font-heading font-bold text-day-text dark:text-dark-text">Mood Analytics</h1>
+            <p className="text-gray-500 dark:text-dark-muted text-sm font-body mt-1">Explore your emotional patterns over time</p>
           </motion.div>
 
           {/* Insight Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             {insightCards.map((card, i) => (
-              <InsightCard
-                key={card.title}
-                icon={card.icon}
-                title={card.title}
-                value={card.value}
-                description={card.description}
-                gradient={card.gradient}
-                accent={card.accent}
-                delay={i * 0.1}
-              />
+              <InsightCard key={card.title} {...card} delay={i * 0.1} />
             ))}
           </div>
 
           {/* Analytics Charts */}
           {history.length === 0 ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-white/60 dark:bg-dark-card/60 backdrop-blur-xl border border-white/70 dark:border-dark-border/50 rounded-2xl shadow-card dark:shadow-none p-12 text-center mb-8"
-            >
-              <h3 className="font-bold text-slate-600 dark:text-dark-text text-lg mb-2">No data yet</h3>
-              <p className="text-slate-400 dark:text-dark-muted text-sm mb-5">Start logging your moods to see beautiful analytics here</p>
-              <button
-                onClick={() => navigate('/check-in')}
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-soft-purple to-deep-purple text-white text-sm font-semibold shadow-mood hover:shadow-glass transition-all"
-              >
+            <GlassCard className="p-12 text-center mb-8">
+              <h3 className="font-heading font-bold text-day-text dark:text-dark-text text-lg mb-2">No data yet</h3>
+              <p className="text-gray-400 dark:text-dark-muted text-sm font-body mb-5">Start logging your moods to see beautiful analytics here</p>
+              <button onClick={() => navigate('/check-in')} className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-day-primary to-day-accent text-white text-sm font-heading font-semibold shadow-mood hover:shadow-glass transition-all">
                 Log your first mood →
               </button>
-            </motion.div>
+            </GlassCard>
           ) : (
-            <MoodAnalytics
-              weeklyData={weeklyData}
-              pieData={pieData}
-              avgScore={avgScore}
-              totalLogs={history.length}
-              trend={trend}
-            />
+            <>
+              <MoodAnalytics weeklyData={weeklyData} pieData={pieData} avgScore={avgScore} totalLogs={history.length} trend={trend} />
+
+              {/* Stress Level Chart */}
+              <GlassCard className="p-6 mt-6" delay={0.5}>
+                <h3 className="font-heading font-bold text-day-text dark:text-dark-text text-sm mb-4">Energy vs Stress (Weekly)</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={stressData} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,92,252,0.08)" />
+                    <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
+                    <YAxis domain={[0, 10]} tick={{ fontSize: 11, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
+                    <Tooltip contentStyle={{ background: 'rgba(255,255,255,0.95)', borderRadius: '12px', border: 'none', fontSize: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }} />
+                    <Bar dataKey="score" fill="#7C5CFC" radius={[4, 4, 0, 0]} name="Energy" />
+                    <Bar dataKey="stress" fill="#FB7185" radius={[4, 4, 0, 0]} name="Stress" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </GlassCard>
+            </>
           )}
 
           {/* Mood History */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-8"
-          >
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-bold text-slate-700 dark:text-dark-text text-base">
+              <h2 className="font-heading font-bold text-day-text dark:text-dark-text text-base">
                 Mood History
                 {history.length > 0 && (
-                  <span className="ml-2 text-xs text-slate-400 dark:text-dark-muted font-normal">
+                  <span className="ml-2 text-xs text-gray-400 dark:text-dark-muted font-body font-normal">
                     ({history.length} {history.length === 1 ? 'entry' : 'entries'})
                   </span>
                 )}
               </h2>
               {history.length > 0 && (
-                <button
-                  onClick={() => navigate('/check-in')}
-                  className="text-xs text-soft-purple dark:text-dark-accent font-semibold hover:text-deep-purple dark:hover:text-soft-purple transition-colors"
-                >
+                <button onClick={() => navigate('/check-in')} className="text-xs text-day-primary dark:text-night-primary font-body font-semibold hover:opacity-80 transition-opacity">
                   + Add entry
                 </button>
               )}
             </div>
-
-            <MoodHistory
-              history={history}
-              onDelete={deleteEntry}
-              onEdit={() => navigate('/check-in')}
-            />
+            <MoodHistory history={history} onDelete={deleteEntry} onEdit={() => navigate('/check-in')} />
           </motion.div>
 
-          {/* Footer */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="text-center text-xs text-slate-400 dark:text-dark-muted mt-10"
-          >
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} className="text-center text-xs text-gray-400 dark:text-dark-muted font-body mt-10">
             Built by Alakh Raj Singh
           </motion.p>
         </div>
